@@ -273,6 +273,11 @@
             box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);
         }
         
+        /* Cursor styles - Disabled */
+        * {
+            cursor: default !important;
+        }
+        
         .notify-btn:hover::after {
             transform: scale(1.5);
             opacity: 0.5;
@@ -335,8 +340,8 @@
     </style>
 </head>
 <body>
-    <!-- Add a security overlay that covers the entire page -->
-    <div id="securityOverlay2" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:999998;pointer-events:auto;background:transparent;"></div>
+    <!-- Security overlay with pointer-events disabled to allow button interactions -->
+    <div id="securityOverlay2" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:999998;pointer-events:none;background:transparent;"></div>
     
     <div class="container">
         <!-- Add a hidden element to prevent view source -->
@@ -414,53 +419,17 @@
             // Add cursor hover effect
             button.addEventListener('mouseenter', () => {
                 const cursor = document.querySelector('.cursor');
-                if (cursor) cursor.classList.add('cursor-hover');
+                if (cursor) cursor.classList.add('hovered');
             });
             
             button.addEventListener('mouseleave', () => {
                 const cursor = document.querySelector('.cursor');
-                if (cursor) cursor.classList.remove('cursor-hover');
+                if (cursor) cursor.classList.remove('hovered');
             });
         });
     </script>
     
-    <!-- Custom Cursor Script -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Create cursor element if it doesn't exist
-        if (!document.querySelector('.cursor')) {
-            const cursor = document.createElement('div');
-            cursor.classList.add('cursor');
-            document.body.appendChild(cursor);
-            
-            // Track mouse position
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-            
-            // Add click effect
-            document.addEventListener('mousedown', () => {
-                cursor.classList.add('cursor-click');
-            });
-            
-            document.addEventListener('mouseup', () => {
-                cursor.classList.remove('cursor-click');
-            });
-            
-            // Hide cursor when not needed
-            document.addEventListener('mouseout', (e) => {
-                if (e.relatedTarget === null) {
-                    cursor.style.opacity = '0';
-                }
-            });
-            
-            document.addEventListener('mouseover', () => {
-                cursor.style.opacity = '1';
-            });
-        }
-    });
-    </script>
+    <!-- Custom Cursor Script - Disabled -->
     <!-- Add a final security script -->
     <script>
     // Prevent leaving the page

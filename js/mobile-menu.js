@@ -1,45 +1,90 @@
 // Mobile menu functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    const overlay = document.createElement('div');
-    
-    // Create overlay element
-    overlay.classList.add('overlay');
-    document.body.appendChild(overlay);
+    // Mobile menu elements
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-nav-menu');
+    const mobileOverlay = document.querySelector('.mobile-nav-overlay');
+    const closeMenuBtn = document.querySelector('.mobile-close-btn');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
     
     // Toggle mobile menu
-    function toggleMenu() {
-        menuBtn.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    function toggleMobileMenu() {
+        mobileMenu.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        
+        // Toggle menu button animation
+        const menuIcon = mobileMenuBtn.querySelector('.menu-icon');
+        if (menuIcon) {
+            menuIcon.classList.toggle('active');
+        }
     }
     
-    // Menu button click event
-    menuBtn.addEventListener('click', toggleMenu);
+    // Close mobile menu when clicking outside
+    function closeMenuOnClickOutside(e) {
+        if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            toggleMobileMenu();
+        }
+    }
     
-    // Close menu when clicking on overlay
-    overlay.addEventListener('click', toggleMenu);
+    // Close menu when clicking on a link
+    function closeMenuOnLinkClick() {
+        if (mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    }
     
-    // Close menu when clicking on nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 992) {
-                toggleMenu();
-            }
-        });
+    // Event listeners
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+    
+    if (closeMenuBtn) {
+        closeMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+    
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', toggleMobileMenu);
+        document.addEventListener('click', closeMenuOnClickOutside);
+    }
+    
+    // Close menu when clicking on mobile links
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', closeMenuOnLinkClick);
     });
     
-    // Close menu when window is resized to desktop size
+    // Close menu when pressing Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    });
+    
+    // Close menu when window is resized to desktop
     function handleResize() {
-        if (window.innerWidth > 992) {
-            menuBtn.classList.remove('active');
-            navLinks.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
+        if (window.innerWidth > 992 && mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
         }
     }
     
     window.addEventListener('resize', handleResize);
+});
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80, // Adjust for fixed header
+                behavior: 'smooth'
+            });
+        }
+    });
 });
