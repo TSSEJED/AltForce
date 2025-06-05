@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" oncontextmenu="return false" onkeydown="return disableKeys(event)" onmousedown="return disableRightClick(event)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="no-referrer">
+    <title>AltForce - Coming Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="js/security.js" defer></script>
+    <!-- Add a security overlay that can't be removed -->
+    <div id="securityOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:999999;pointer-events:none;background:transparent;"></div>
+    
+    <script>
+    // Make the security overlay unremovable
+    Object.defineProperty(document.getElementById('securityOverlay'), 'remove', {
+        value: function() { return false; },
+        writable: false
+    });
+    
+    // Additional protection against view source
+    document.onkeydown = function(e) {
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
+        if (e.keyCode === 123 || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 73) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
+            (e.ctrlKey && e.keyCode === 85) ||
+            (e.ctrlKey && e.keyCode === 83) ||
+            (e.ctrlKey && e.keyCode === 80) ||
+            (e.metaKey && e.altKey && e.keyCode === 73) || // Cmd+Opt+I (Mac)
+            (e.altKey && e.keyCode === 115)) { // Alt+F4
+            return false;
+        }
+    };
+    
+    // Disable right-click
+    function disableRightClick(e) {
+        if (e.button === 2) {
+            return false;
+        }
+        return true;
+    }
+    
+    // Disable keyboard shortcuts
+    function disableKeys(e) {
+        // Block F1-F12
+        if (e.keyCode >= 112 && e.keyCode <= 123) {
+            return false;
+        }
+        
+        // Block Ctrl/Alt + key combinations
+        if (e.ctrlKey || e.altKey || e.metaKey) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    // Disable text selection
+    document.onselectstart = function() { return false; };
+    document.ondragstart = function() { return false; };
+    
+    // Prevent opening developer tools
+    setInterval(function() {
+        const before = new Date().getTime();
+        (function() {
+            debugger;
+        }());
+        const after = new Date().getTime();
+        if (after - before > 100) {
+            document.body.innerHTML = '<h1>Access Denied</h1><p>Developer tools are disabled on this page.</p>';
+            window.location.href = 'about:blank';
+        }
+    }, 1000);
+    </script>
+    
+    <style>
+    /* Disable text selection */
+    * {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* Hide scrollbar but keep functionality */
+    body::-webkit-scrollbar {
+        display: none;
+    }
+    
+    body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+        :root {
+            --primary: #2196F3;
+            --primary-light: #64B5F6;
+            --primary-dark: #1976D2;
+            --background: #0a0f1f;
+            --surface: #0F254E;
+            --text: #E3F2FD;
+            --text-muted: #90CAF9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(33, 150, 243, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(25, 118, 210, 0.1) 0%, transparent 25%);
+            z-index: -1;
+            animation: pulse 15s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+
+        .container {
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 3rem 2rem;
+            background: rgba(15, 37, 78, 0.4);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 2rem;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Button base styles */
+        .discord-btn, .notify-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* Button hover effect */
+        .discord-btn::after, .notify-btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            max-width: 280px;
+            margin: 3rem auto 2rem;
+            width: 100%;
+        }
+        
+        /* Discord Button */
+        .discord-btn {
+            background: #5865F2;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+        
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.6);
+        }
+        
+        .discord-btn:hover::after {
+            transform: scale(1.5);
+            opacity: 1;
+        }
+
+        /* Notify Button */
+        .notify-btn {
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--primary-light);
+            border: 2px solid var(--primary);
+            backdrop-filter: blur(5px);
+        }
+
+        .notify-btn:hover {
+            background: rgba(33, 150, 243, 0.2);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);
+        }
+        
+        .notify-btn:hover::after {
+            transform: scale(1.5);
+            opacity: 0.5;
+        }
+        
+        /* Button icons */
+        .discord-btn svg,
+        .notify-btn svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                padding: 0 1rem;
+            }
+            
+            .action-buttons {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .countdown {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                min-width: 80px;
+                padding: 0.75rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add a security overlay that covers the entire page -->
+    <div id="securityOverlay2" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:999998;pointer-events:auto;background:transparent;"></div>
+    
+    <div class="container">
+        <!-- Add a hidden element to prevent view source -->
+        <div style="display:none;" id="noViewSource"></div>
+        <script>
+            // Make the hidden element unremovable
+            Object.defineProperty(document.getElementById('noViewSource'), 'remove', {
+                value: function() { return false; },
+                writable: false
+            });
+            
+            // Prevent context menu on the container
+            document.querySelector('.container').addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        </script>
+        <div class="logo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" stroke="url(#paint0_linear)" stroke-width="4"/>
+                <path d="M50 20L65 50L50 80L35 50L50 20Z" fill="url(#paint1_linear)"/>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="50" y1="5" x2="50" y2="95" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#2196F3"/>
+                        <stop offset="1" stop-color="#64B5F6"/>
+                    </linearGradient>
+                    <linearGradient id="paint1_linear" x1="50" y1="20" x2="50" y2="80" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#2196F3"/>
+                        <stop offset="1" stop-color="#64B5F6"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <h1>Coming Soon</h1>
+        
+        <div class="action-buttons">
+            <a href="https://discord.gg/fN2kaYPV6p" class="discord-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.317 4.36998C18.352 3.49898 16.249 2.87498 14.045 2.53898C13.789 3.70698 13.35 5.38498 12.989 6.33798C10.61 6.12898 8.251 6.12898 5.931 6.33798C5.569 5.38498 5.12 3.70698 4.874 2.53898C2.659 2.87398 0.547 4.00098 0.039 4.36998C-0.000999999 4.54098 -0.021 4.71998 0.02 4.88998C0.02 7.53498 1.072 10.03 2.555 12.13C2.555 12.13 3.075 12.93 3.688 13.63C6.14 12.85 7.446 12.26 8.768 11.9C9.39 12.5 10.127 13.13 10.984 13.67C9.792 14.18 8.54 14.56 7.22 14.78L7.59 16.13C9.69 16.7 11.89 17.02 14.11 17.02C16.33 17.02 18.53 16.7 20.63 16.13L21 14.78C19.67 14.56 18.43 14.18 17.23 13.67C18.097 13.12 18.84 12.48 19.47 11.86C19.74 11.6 20 11.33 20.25 11.05C20.49 10.77 20.72 10.48 20.94 10.19C22.43 8.04998 23.47 5.52498 23.47 4.91998C23.47 4.74998 23.46 4.57998 23.42 4.41998C23.37 4.25998 23.3 4.10998 23.19 3.99998C22.92 3.74998 21.76 4.05998 20.32 4.36998H20.317Z" fill="currentColor"/>
+                </svg>
+                Join Our Discord
+            </a>
+            <button class="notify-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Notify Me
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Notify Me button functionality
+        document.querySelector('.notify-btn').addEventListener('click', function() {
+            const email = prompt('Enter your email to be notified when we launch:');
+            if (email) {
+                // In a real implementation, you would send this to your server
+                alert('Thank you! We\'ll notify you at ' + email + ' when we launch.');
+            }
+        });
+
+        // Add smooth hover effect for buttons
+        const buttons = document.querySelectorAll('.discord-btn, .notify-btn, a, button, input, textarea, select');
+        buttons.forEach(button => {
+            button.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                this.style.setProperty('--x', x + 'px');
+                this.style.setProperty('--y', y + 'px');
+            });
+
+            // Add cursor hover effect
+            button.addEventListener('mouseenter', () => {
+                const cursor = document.querySelector('.cursor');
+                if (cursor) cursor.classList.add('cursor-hover');
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                const cursor = document.querySelector('.cursor');
+                if (cursor) cursor.classList.remove('cursor-hover');
+            });
+        });
+    </script>
+    
+    <!-- Custom Cursor Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create cursor element if it doesn't exist
+        if (!document.querySelector('.cursor')) {
+            const cursor = document.createElement('div');
+            cursor.classList.add('cursor');
+            document.body.appendChild(cursor);
+            
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            
+            // Add click effect
+            document.addEventListener('mousedown', () => {
+                cursor.classList.add('cursor-click');
+            });
+            
+            document.addEventListener('mouseup', () => {
+                cursor.classList.remove('cursor-click');
+            });
+            
+            // Hide cursor when not needed
+            document.addEventListener('mouseout', (e) => {
+                if (e.relatedTarget === null) {
+                    cursor.style.opacity = '0';
+                }
+            });
+            
+            document.addEventListener('mouseover', () => {
+                cursor.style.opacity = '1';
+            });
+        }
+    });
+    </script>
+    <!-- Add a final security script -->
+    <script>
+    // Prevent leaving the page
+    window.onbeforeunload = function() {
+        return 'Are you sure you want to leave this page?';
+    };
+    
+    // Disable print screen
+    document.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen') {
+            navigator.clipboard.writeText('');
+            alert('Print Screen is disabled');
+            return false;
+        }
+    });
+    
+    // Disable right-click on images
+    document.querySelectorAll('img').forEach(img => {
+        img.setAttribute('oncontextmenu', 'return false;');
+        img.setAttribute('draggable', 'false');
+    });
+    
+    // Disable F12, Ctrl+Shift+I, etc.
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+            (e.ctrlKey && e.key === 'U') ||
+            (e.metaKey && e.altKey && e.key === 'I')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    </script>
+</body>
+</html>
