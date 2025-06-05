@@ -1,14 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" oncontextmenu="return false" onkeydown="return disableKeys(event)" onmousedown="return disableRightClick(event)">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="no-referrer">
     <title>AltForce - Coming Soon</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+    <script src="js/security.js" defer></script>
+    <!-- Add a security overlay that can't be removed -->
+    <div id="securityOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:999999;pointer-events:none;background:transparent;"></div>
+    
+    <script>
+    // Make the security overlay unremovable
+    Object.defineProperty(document.getElementById('securityOverlay'), 'remove', {
+        value: function() { return false; },
+        writable: false
+    });
+    
+    // Additional protection against view source
+    document.onkeydown = function(e) {
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
+        if (e.keyCode === 123 || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 73) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
+            (e.ctrlKey && e.keyCode === 85) ||
+            (e.ctrlKey && e.keyCode === 83) ||
+            (e.ctrlKey && e.keyCode === 80) ||
+            (e.metaKey && e.altKey && e.keyCode === 73) || // Cmd+Opt+I (Mac)
+            (e.altKey && e.keyCode === 115)) { // Alt+F4
+            return false;
+        }
+    };
+    
+    // Disable right-click
+    function disableRightClick(e) {
+        if (e.button === 2) {
+            return false;
+        }
+        return true;
+    }
+    
+    // Disable keyboard shortcuts
+    function disableKeys(e) {
+        // Block F1-F12
+        if (e.keyCode >= 112 && e.keyCode <= 123) {
+            return false;
+        }
+        
+        // Block Ctrl/Alt + key combinations
+        if (e.ctrlKey || e.altKey || e.metaKey) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    // Disable text selection
+    document.onselectstart = function() { return false; };
+    document.ondragstart = function() { return false; };
+    
+    // Prevent opening developer tools
+    setInterval(function() {
+        const before = new Date().getTime();
+        (function() {
+            debugger;
+        }());
+        const after = new Date().getTime();
+        if (after - before > 100) {
+            document.body.innerHTML = '<h1>Access Denied</h1><p>Developer tools are disabled on this page.</p>';
+            window.location.href = 'about:blank';
+        }
+    }, 1000);
+    </script>
+    
     <style>
+    /* Disable text selection */
+    * {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* Hide scrollbar but keep functionality */
+    body::-webkit-scrollbar {
+        display: none;
+    }
+    
+    body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
         :root {
             --primary: #2196F3;
             --primary-light: #64B5F6;
@@ -246,7 +335,25 @@
     </style>
 </head>
 <body>
+    <!-- Add a security overlay that covers the entire page -->
+    <div id="securityOverlay2" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:999998;pointer-events:auto;background:transparent;"></div>
+    
     <div class="container">
+        <!-- Add a hidden element to prevent view source -->
+        <div style="display:none;" id="noViewSource"></div>
+        <script>
+            // Make the hidden element unremovable
+            Object.defineProperty(document.getElementById('noViewSource'), 'remove', {
+                value: function() { return false; },
+                writable: false
+            });
+            
+            // Prevent context menu on the container
+            document.querySelector('.container').addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        </script>
         <div class="logo">
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="45" stroke="url(#paint0_linear)" stroke-width="4"/>
@@ -351,6 +458,41 @@
             document.addEventListener('mouseover', () => {
                 cursor.style.opacity = '1';
             });
+        }
+    });
+    </script>
+    <!-- Add a final security script -->
+    <script>
+    // Prevent leaving the page
+    window.onbeforeunload = function() {
+        return 'Are you sure you want to leave this page?';
+    };
+    
+    // Disable print screen
+    document.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen') {
+            navigator.clipboard.writeText('');
+            alert('Print Screen is disabled');
+            return false;
+        }
+    });
+    
+    // Disable right-click on images
+    document.querySelectorAll('img').forEach(img => {
+        img.setAttribute('oncontextmenu', 'return false;');
+        img.setAttribute('draggable', 'false');
+    });
+    
+    // Disable F12, Ctrl+Shift+I, etc.
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+            (e.ctrlKey && e.key === 'U') ||
+            (e.metaKey && e.altKey && e.key === 'I')) {
+            e.preventDefault();
+            return false;
         }
     });
     </script>

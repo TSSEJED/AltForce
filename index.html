@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description" content="Professional Alt Account Management for ERLC servers. Secure, reliable, and efficient alt account services to grow your community.">
     <meta name="theme-color" content="#021a3a">
     <meta name="author" content="AltForce">
@@ -442,6 +442,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./mobile.css" media="screen and (max-width: 991px)">
+    <script src="./js/mobile-menu.js" defer></script>
+    <script src="./js/smooth-scroll.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -453,11 +456,14 @@
                     <span>AltForce</span>
                 </a>
                 <div class="nav-links">
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#pricing" class="nav-link">Pricing</a>
-                    <a href="#faq" class="nav-link">FAQ</a>
-                    <a href="https://discord.gg/fN2kaYPV6p" class="btn btn-primary">Join Discord</a>
+                    <a href="#about" class="nav-link" data-scroll>About</a>
+                    <a href="#features" class="nav-link" data-scroll>Features</a>
+                    <a href="#pricing" class="nav-link" data-scroll>Pricing</a>
+                    <a href="#faq" class="nav-link" data-scroll>FAQ</a>
+                    <a href="https://discord.gg/fN2kaYPV6p" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        <span class="desktop-only">Join Discord</span>
+                        <span class="mobile-only">Discord</span>
+                    </a>
                 </div>
                 <button class="mobile-menu-btn" aria-label="Toggle menu">
                     <span></span>
