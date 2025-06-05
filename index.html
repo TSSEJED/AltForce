@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Alt Account Management for ERLC servers. Secure, reliable, and efficient alt account services to grow your community.">
+    <meta name="theme-color" content="#021a3a">
+    <meta name="author" content="AltForce">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>AltForce</title>
+    <meta property="og:title" content="AltForce - Professional Alt Account Management">
+    <meta property="og:description" content="Professional alt account management services for ERLC servers. We handle your server's alt accounts with security and reliability.">
+    <meta property="og:image" content="./logo.png">
+    <meta name="theme-color" content="#0F254E">
+    <link rel="icon" href="./logo.png" type="image/png">
+    <link rel="stylesheet" href="./styles.css">
+    <script>
+    // Strong protection against right-click and F12
+    (function() {
+        // Block all context menus
+        const blockContextMenu = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            alert('🔒 This action is disabled');
+            return false;
+        };
+
+        // Block all keyboard shortcuts
+        const blockShortcuts = function(e) {
+            // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, etc.
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+                (e.ctrlKey && e.key === 'U') ||
+                (e.altKey && e.key === 'F4')) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                alert('🔒 Developer tools are disabled');
+                return false;
+            }
+        };
+
+        // Create security overlay
+        const securityOverlay = document.createElement('div');
+        securityOverlay.id = 'security-overlay';
+        securityOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:2147483647;background:transparent;pointer-events:auto;';
+        document.documentElement.appendChild(securityOverlay);
+        
+        // Make overlay unremovable
+        Object.defineProperty(securityOverlay, 'remove', {
+            value: function() { return false; },
+            writable: false
+        });
+
+        // Add event listeners with capture phase
+        const events = ['contextmenu', 'mousedown', 'mouseup', 'click', 'keydown', 'keyup', 'keypress'];
+        events.forEach(event => {
+            document.addEventListener(event, function(e) {
+                // Block right-click
+                if (e.button === 2 || e.which === 3) {
+                    blockContextMenu(e);
+                }
+                // Block keyboard shortcuts
+                if (event.startsWith('key')) {
+                    blockShortcuts(e);
+                }
+            }, true);
+        });
+
+        // Prevent new windows
+        window.open = function() { return null; };
+        
+        // Disable console
+        if (!window.console) window.console = {};
+        const methods = ['log', 'warn', 'error', 'info', 'debug'];
+        methods.forEach(method => {
+            console[method] = function() {};
+        });
+
+        // Prevent leaving the page
+        window.onbeforeunload = function() {
+            return 'Are you sure you want to leave?';
+        };
+
+        // Continuous check for dev tools
+        setInterval(function() {
+            const before = new Date();
+            debugger;
+            const after = new Date();
+            if (after - before > 100) { // If dev tools is open
+                document.body.innerHTML = '';
+                window.location.href = 'about:blank';
+            }
+        }, 1000);
+    })();
+        
+        // Add overlay to both document and documentElement
+        document.documentElement.appendChild(securityOverlay);
+        document.body.appendChild(securityOverlay.cloneNode(true));
+        
+        // Prevent F12, Ctrl+Shift+I, etc.
+        const blockShortcut = function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c', 'K', 'U', 'u'].includes(e.key)) ||
+                (e.ctrlKey && ['U', 'u', 'S', 's', 'P', 'p'].includes(e.key)) ||
+                (e.altKey && e.key === 'F4')) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                return false;
+            }
+        };
+        
+        // Block all context menus
+        const blockContextMenu = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return false;
+        };
+        
+        // Block all keyboard events
+        const blockKeyboard = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return false;
+        };
+        
+        // Block all mouse events
+        const blockMouse = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return false;
+        };
+        
+        // Add event listeners with capture
+        const events = ['keydown', 'keyup', 'keypress', 'contextmenu', 'mousedown', 'mouseup', 'click', 'dblclick', 'select', 'selectstart', 'cut', 'copy', 'paste', 'drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'];
+        events.forEach(event => {
+            document.addEventListener(event, blockMouse, true);
+            window.addEventListener(event, blockMouse, true);
+            document.documentElement.addEventListener(event, blockMouse, true);
+            window.document.addEventListener(event, blockMouse, true);
+        });
+        
+        // Special handling for keyboard events
+        ['keydown', 'keyup', 'keypress'].forEach(event => {
+            document.addEventListener(event, blockKeyboard, true);
+            window.addEventListener(event, blockKeyboard, true);
+        });
+        
+        // Block F12, Ctrl+Shift+I, etc.
+        document.addEventListener('keydown', blockShortcut, true);
+        
+        // Block context menu
+        document.addEventListener('contextmenu', blockContextMenu, true);
+        
+        // Prevent new windows
+        window.open = function() { return null; };
+        
+        // Disable console methods
+        if (!window.console) window.console = {};
+        const methods = ['log', 'warn', 'error', 'info', 'debug', 'table', 'clear', 'time', 'timeEnd', 'count', 'assert'];
+        methods.forEach(method => {
+            console[method] = function() {};
+        });
+        
+        // Prevent leaving the page
+        window.onbeforeunload = function() {
+            return 'Are you sure you want to leave?';
+        };
+        
+        // Prevent access to developer tools
+        setInterval(function() {
+            if (window.outerWidth - window.innerWidth > 100 || window.outerHeight - window.innerHeight > 100) {
+                document.body.innerHTML = '';
+                window.location.href = 'about:blank';
+            }
+        }, 1000);
+    })();
+
+    // Toggle developer mode
+    function toggleDeveloperMode() {
+        developerMode = !developerMode;
+        developerIndicator.textContent = `Developer Mode: ${developerMode ? 'ON' : 'OFF}`;
+        developerIndicator.classList.toggle('active', developerMode);
+        
+        // Show notification
+        showNotification(`🔓 Developer Mode ${developerMode ? 'Enabled' : 'Disabled'}`);
+        
+        // Auto-hide indicator after 3 seconds if turning off
+        if (!developerMode) {
+            setTimeout(() => {
+                developerIndicator.classList.remove('active');
+            }, 3000);
+        }
+    }
+
+    // Create notification function
+    function showNotification(message) {
+        // Don't show notifications in developer mode
+        if (developerMode) return;
+        
+        // Create notification if it doesn't exist
+        let notification = document.getElementById('security-notification');
+        if (!notification) {
+            notification = document.createElement('div');
+            notification.id = 'security-notification';
+            notification.className = 'notification';
+            document.body.appendChild(notification);
+        }
+        
+        // Set message and show
+        notification.textContent = message;
+        notification.classList.add('show');
+        
+        // Auto hide after 3 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+    
+    // Developer mode shortcut (Alt+Shift+D)
+    const keysPressed = new Set();
+    document.addEventListener('keydown', function(e) {
+        keysPressed.add(e.key);
+        if (keysPressed.has('Alt') && keysPressed.has('Shift') && e.key === 'D') {
+            toggleDeveloperMode();
+        }
+    });
+    document.addEventListener('keyup', function(e) {
+        keysPressed.delete(e.key);
+    });
+
+    // Immediate right-click prevention
+    document.addEventListener('contextmenu', function(e) {
+        if (developerMode) return;
+        e.preventDefault();
+        showNotification('🔒 Right-click is disabled on this page');
+        return false;
+    }, true);
+    
+    // Prevent keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Skip if in developer mode
+        if (developerMode) return;
+        
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key))) {
+            e.preventDefault();
+            e.stopPropagation();
+            showNotification('🔒 Developer tools are disabled');
+            return false;
+        }
+        
+        if (e.ctrlKey && ['U', 'u', 'S', 's', 'P', 'p'].includes(e.key)) {
+            e.preventDefault();
+            e.stopPropagation();
+            showNotification('🔒 This action is not allowed');
+            return false;
+        }
+        
+        if (e.altKey && e.key === 'F4') {
+            e.preventDefault();
+            e.stopPropagation();
+            showNotification('🔒 This action is restricted');
+            return false;
+        }
+    }, true);
+    
+    // Prevent text selection
+    document.addEventListener('selectstart', function(e) {
+        if (developerMode) return;
+        e.preventDefault();
+        showNotification('🔒 Text selection is disabled');
+        return false;
+    }, true);
+    
+    // Prevent drag and drop
+    document.addEventListener('dragstart', function(e) {
+        if (developerMode) return;
+        e.preventDefault();
+        showNotification('🔒 Drag and drop is disabled');
+        return false;
+    }, true);
+    </script>
+    <style>
+    #security-notification {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #fff;
+        padding: 16px 32px;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
+                    0 0 25px rgba(33, 150, 243, 0.3),
+                    inset 0 0 15px rgba(255, 255, 255, 0.1);
+        z-index: 10000;
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    #security-notification.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+    #security-notification::before {
+        content: '🔒';
+        font-size: 20px;
+    }
+    </style>
+    <script>
+    // Show notification function
+    function showNotification(message) {
+        let notification = document.getElementById('security-notification');
+        if (!notification) {
+            notification = document.createElement('div');
+            notification.id = 'security-notification';
+            document.body.appendChild(notification);
+        }
+        notification.textContent = message;
+        notification.classList.add('show');
+        setTimeout(() => notification.classList.remove('show'), 2000);
+    }
+
+    // Block right-click and context menu
+    function blockContextMenu(e) {
+        e.preventDefault();
+        showNotification('Right-click is disabled');
+        return false;
+    }
+    
+    // Block keyboard shortcuts
+    function blockShortcuts(e) {
+        // Block F1-F12, F3, F5, F7, F12
+        if (e.key.startsWith('F') && !isNaN(e.key.substring(1))) {
+            e.preventDefault();
+            showNotification('Function keys are disabled');
+            return false;
+        }
+        
+        // Block Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, etc.
+        if (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c', 'K', 'k'].includes(e.key)) {
+            e.preventDefault();
+            showNotification('Developer tools are disabled');
+            return false;
+        }
+        
+        // Block Ctrl+U (view source)
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            showNotification('View source is disabled');
+            return false;
+        }
+        
+        // Block Ctrl+P (print)
+        if (e.ctrlKey && (e.key === 'P' || e.key === 'p')) {
+            e.preventDefault();
+            showNotification('Printing is disabled');
+            return false;
+        }
+        
+        // Block Ctrl+S (save page)
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            showNotification('Saving is disabled');
+            return false;
+        }
+    }
+    
+    // Block text selection and dragging
+    function blockSelection(e) {
+        e.preventDefault();
+        return false;
+    }
+
+    // Add event listeners
+    document.addEventListener('contextmenu', blockContextMenu, true);
+    document.addEventListener('keydown', blockShortcuts, true);
+    document.addEventListener('selectstart', blockSelection, true);
+    
+    // Block F12 via keyup as well (some browsers use this)
+    document.addEventListener('keyup', blockShortcuts, true);
+    
+    // Block right-click via mousedown
+    document.addEventListener('mousedown', (e) => {
+        if (e.button === 2) { // Right click
+            blockContextMenu(e);
+        }
+    }, true);
+    
+    // Block F12 via keypress
+    document.addEventListener('keypress', blockShortcuts, true);
+    
+    // Block developer menu (some browsers)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'F12' || (e.altKey && e.key === 'F4')) {
+            e.preventDefault();
+            showNotification('This action is disabled');
+            return false;
+        }
+    }, true);
+    
+    // Block right-click menu via contextmenu event
+    window.addEventListener('contextmenu', blockContextMenu, true);
+    
+    // Disable F12 key
+    document.onkeydown = function(e) {
+        if (e.key === 'F12') {
+            e.preventDefault();
+            showNotification('Developer tools are disabled');
+            return false;
+        }
+    };
+    
+    // Block access to developer tools
+    (function() {
+        function blockDevTools() {
+            const before = new Date().getTime();
+            debugger;
+            const after = new Date().getTime();
+            if (after - before > 100) {
+                document.body.innerHTML = '';
+                window.location.href = 'about:blank';
+            }
+        }
+        setInterval(blockDevTools, 1000);
+    })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav-container">
+                <a href="#" class="logo">
+                    <img src="./logo.png" alt="AltForce Logo" class="logo-img">
+                    <span>AltForce</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                    <a href="https://discord.gg/fN2kaYPV6p" class="btn btn-primary">Join Discord</a>
+                </div>
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" style="background: linear-gradient(rgba(2, 34, 78, 0.9), rgba(10, 26, 58, 0.9)), url('./Banner.png') no-repeat center/cover;">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Grow your server with AltForce</h1>
+                <p class="subtitle">We handle your server's alt accounts with security and reliability. Let us manage your alts so you can focus on your community.</p>
+                <div class="cta-buttons">
+                    <a href="https://discord.gg/fN2kaYPV6p" class="btn btn-primary btn-large">Join Our Discord</a>
+                    <a href="#pricing" class="btn btn-secondary btn-large">View Pricing</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About Our Service</h2>
+                <p>We are a service, which users pay us to add our own alts to their ERLC servers. We already own the accounts, they are secure and each alter has their different accounts.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Active Servers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1,000+</span>
+                        <span class="stat-label">Accounts Managed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="glow"></div>
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3>Secure Management</h3>
+                        <p>Your server's security is our top priority. We ensure all alt accounts are managed with the highest level of security protocols.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="glow"></div>
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            </svg>
+                        </div>
+                        <h3>24/7 Monitoring</h3>
+                        <p>Round-the-clock monitoring to ensure your server stays online and performs at its best at all times.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="glow"></div>
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                            </svg>
+                        </div>
+                        <h3>Expert Support</h3>
+                        <p>Our team of experts is always ready to assist you with any questions or issues you might have.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section" style="background-color: var(--surface-darker);">
+        <div class="container">
+            <h2>Why Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="glow"></div>
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <h3>Expert Team</h3>
+                    <p>Our team has years of experience in managing alt accounts for ERLC communities of all sizes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="glow"></div>
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                    </div>
+                    <h3>Reliable Service</h3>
+                    <p>We maintain 99.9% uptime and quick response times for all your alt account needs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="glow"></div>
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9l-3 1.54z"/>
+                            <path d="M1 9v9l11 6 9-4.91V9l-9 4.9z"/>
+                        </svg>
+                    </div>
+                    <h3>Custom Solutions</h3>
+                    <p>Tailored solutions to fit your specific server requirements and community goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purchase Section -->
+    <section id="pricing" class="section" style="background: linear-gradient(135deg, #0a1a35 0%, #0a1128 100%); padding: 6rem 0;">
+        <div class="container">
+            <div class="purchase-notice">
+                <div class="notice-content">
+                    <div class="notice-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" fill="currentColor">
+                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.85.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+                        </svg>
+                    </div>
+                    <h3>Join Our Discord to Purchase</h3>
+                    <p>All purchases are processed through our Discord server. Click the button below to join and get started with our premium services!</p>
+                    <a href="https://discord.gg/fN2kaYPV6p" class="btn-discord" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                            <path d="M20.22 0H3.78A3.78 3.78 0 0 0 0 3.78v16.44A3.78 3.78 0 0 0 3.78 24h16.44A3.78 3.78 0 0 0 24 20.22V3.78A3.78 3.78 0 0 0 20.22 0zm-1.7 17.5c0 .1-.03.2-.05.3-.7-.5-1.6-.9-2.4-1.2l.5-.7c.2-.3.4-.6.5-.9.5-.2 1.1-.4 1.6-.6.1 0 .2-.1.3-.1.1 0 .2 0 .3.1.1 0 .1.1.1.2l-.4 2.1zm-3.3-6.8c0-1.1-.8-2-1.8-2.1-1.1-.1-2 .7-2.1 1.7 0 1.1.8 2 1.8 2.1 1.1.1 2.1-.7 2.1-1.7zm-6.4 0c0-1.1-.8-2-1.8-2.1-1.1-.1-2 .7-2.1 1.7 0 1.1.8 2 1.8 2.1 1.1.1 2.1-.7 2.1-1.7z"/>
+                        </svg>
+                        Join Discord Server
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script>
+// Parallax effect for purchase section
+const section = document.querySelector('.purchase-section');
+if (section) {
+  section.addEventListener('mousemove', (e) => {
+    const { left, top, width, height } = section.getBoundingClientRect();
+    const x = (e.clientX - left) / width - 0.5;
+    const y = (e.clientY - top) / height - 0.5;
+    section.style.setProperty('--rotate-y', `${x * 8}deg`);
+    section.style.setProperty('--rotate-x', `${-y * 8}deg`);
+  });
+
+  section.addEventListener('mouseleave', () => {
+    section.style.setProperty('--rotate-y', '0deg');
+    section.style.setProperty('--rotate-x', '0deg');
+  });
+}
+</script>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section" style="background-color: var(--surface-darker);">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How does the service work?</h3>
+                    <p>We integrate with your ERLC server to manage and maintain your alt accounts, handling all the technical aspects so you can focus on your community.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is this service secure?</h3>
+                    <p>Absolutely. We use industry-standard security measures to ensure your server and alt accounts remain secure at all times.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I cancel anytime?</h3>
+                    <p>Yes, you can cancel your subscription at any time with no hidden fees or penalties.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer custom plans?</h3>
+                    <p>Yes, we can create a custom plan tailored to your specific needs. Contact us for more information.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="./logo.png" alt="AltForce Logo" class="logo-img">
+                    <span>AltForce</span>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="#about">About</a>
+                        <a href="#features">Features</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="#faq">FAQ</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <a href="http://altforce.pages.dev/coming-soon">Terms of Service</a>
+                        <a href="http://altforce.pages.dev/coming-soon">Privacy Policy</a>
+                        <a href="http://altforce.pages.dev/coming-soon">Cookie Policy</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Connect</h4>
+                        <a href="https://discord.gg/fN2kaYPV6p" target="_blank">Discord</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AltForce. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Custom Cursor -->
+    <script src="./js/cursor.js"></script>
+    <!-- FAQ Script -->
+    <script src="./js/faq.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking on a nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Don't prevent default for links that don't point to an ID
+                if (this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+:root {
+  /* Primary Brand Colors */
+  --primary: #2196F3;
+  --accent: #1A73E8;
+  --gradient: #1976D2;
+
+  /* Updated Dark Theme Base */
+  --background-dark: #02224e;
+  --surface-dark: #0F254E;
+  --surface-darker: #0A1A3A;
+
+  /* Text Colors */
+  --text-light: #D6E4F0;
+  --text-muted: #A0B4CE;
+  --text-white: #FFFFFF;
+
+  /* Font Family */
+  --font-heading: 'Poppins', 'Orbitron', sans-serif;
+  --font-body: 'Poppins', 'Roboto', sans-serif;
+
+  /* Border & Hover */
+  --border-color: #0F254E;
+  --hover-glow: rgba(33, 150, 243, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
