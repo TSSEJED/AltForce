@@ -5,12 +5,25 @@ document.addEventListener('DOMContentLoaded', function() {
     cursor.classList.add('cursor');
     document.body.appendChild(cursor);
     
-    // Track mouse position for card hover effect
+    // Track mouse position
     let mouseX = 0;
     let mouseY = 0;
     
-    // Update cursor position and track mouse
-    document.addEventListener('mousemove', (e) => {
+    // Update card hover effect based on mouse position
+    function updateCardHoverEffect(e) {
+        const cards = document.querySelectorAll('.feature-card');
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    }
+    
+    // Simple cursor movement
+    function moveCursor(e) {
         mouseX = e.clientX;
         mouseY = e.clientY;
         cursor.style.left = mouseX + 'px';
@@ -18,7 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update mouse position for card hover effect
         updateCardHoverEffect(e);
-    });
+    }
+    
+    // Initialize cursor position
+    document.addEventListener('mousemove', moveCursor);
     
     // Add hover effect for interactive elements
     const hoverElements = document.querySelectorAll('a, button, .btn, input, textarea, select, .feature-card');
@@ -56,19 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('mouseover', () => {
         cursor.style.opacity = '1';
     });
-    
-    // Update card hover effect based on mouse position
-    function updateCardHoverEffect(e) {
-        const cards = document.querySelectorAll('.feature-card');
-        cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
-    }
     
     // Disable cursor on touch devices
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;

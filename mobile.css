@@ -1,7 +1,7 @@
 /* Mobile-specific styles for AltForce */
 
 /* Base mobile styles */
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   /* Reset some default styles */
   body {
     overflow-x: hidden;
@@ -30,10 +30,47 @@
     transition: right 0.4s ease-in-out;
     z-index: 1000;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: flex-start;
   }
 
   .nav-links.active {
     right: 0;
+  }
+  
+  /* Mobile menu button */
+  .mobile-menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+  }
+  
+  .mobile-menu-btn span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+  
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
   }
 
   .nav-link {

@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>AltForce</title>
+
     <meta property="og:title" content="AltForce - Professional Alt Account Management">
     <meta property="og:description" content="Professional alt account management services for ERLC servers. We handle your server's alt accounts with security and reliability.">
     <meta property="og:image" content="./logo.png">
@@ -46,8 +47,12 @@
         // Create security overlay
         const securityOverlay = document.createElement('div');
         securityOverlay.id = 'security-overlay';
-        securityOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:2147483647;background:transparent;pointer-events:auto;';
+        securityOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:2147483647;background:transparent;pointer-events:none;';
         document.documentElement.appendChild(securityOverlay);
+        
+        // Allow scrolling on the body
+        document.body.style.overflowY = 'auto';
+        document.documentElement.style.overflowY = 'auto';
         
         // Make overlay unremovable
         Object.defineProperty(securityOverlay, 'remove', {
@@ -444,9 +449,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./mobile.css" media="screen and (max-width: 991px)">
     <script src="./js/mobile-menu.js" defer></script>
+    <script src="./js/loading.js" defer></script>
     <script src="./js/smooth-scroll.js" defer></script>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <div class="loading-dots">
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                </div>
+            </div>
+            <div class="loading-text">INITIALIZING</div>
+        </div>
+    </div>
+    
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -688,6 +708,7 @@ if (section) {
     </footer>
     <!-- Custom Cursor -->
     <script src="./js/cursor.js"></script>
+    
     <!-- FAQ Script -->
     <script src="./js/faq.js"></script>
     <script>
